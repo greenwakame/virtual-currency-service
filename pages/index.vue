@@ -13,15 +13,51 @@
         <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
       </div>
     </div>
+    <div class="small">
+      <commit-chart :chart-data="datacollection"></commit-chart>
+      <button @click="fillData">ランダムデータ入力</button>
+    </div>
   </section>
 </template>
 
 <script>
 import Logo from '~/components/Logo.vue'
 
+import CommitChart from '~/components/CommitChart'
+
 export default {
   components: {
-    Logo
+    Logo,
+    CommitChart
+  },
+  data () {
+    return {
+      datacollection: null
+    }
+  },
+  mounted () {
+    this.fillData()
+  },
+  methods: {
+    fillData () {
+      this.datacollection = {
+        labels: [this.getRandomInt(), this.getRandomInt()],
+        datasets: [
+          {
+            label: 'Data One',
+            backgroundColor: '#f87979',
+            data: [this.getRandomInt(), this.getRandomInt()]
+          }, {
+            label: 'Data One',
+            backgroundColor: '#f87979',
+            data: [this.getRandomInt(), this.getRandomInt()]
+          }
+        ]
+      }
+    },
+    getRandomInt () {
+      return Math.floor(Math.random() * (50 - 5 + 1)) + 5
+    }
   }
 }
 </script>
